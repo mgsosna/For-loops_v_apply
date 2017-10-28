@@ -57,3 +57,15 @@ When we just want to know the mean of each column in a matrix, `for` loops actua
 
 In the figure above, the gray and red colors correspond to `for` loops and `apply`, respectively. The lines are the mean values for 10 runs, and the shaded regions are our confidence intervals (mean +/- 1.96 * standard error).
 
+The y-axis corresponds to the time it took to perform the calculation. Lower values means the calculation was faster. As you move to the right on the x-axis, you're seeing the computational time for increasingly larger matrices. We see the gray and red lines merge because any differences in the computational efficiency of our two methods seem to get washed out for large matrcies. For relatively small matrices, though, it looks like `for` loops generally outcompete `apply`. 
+
+In summary, we have evidence that `for` loops outcompete `apply` for a simple task on matrices below roughly 500,000 cells. Above that size, though, you shouldn't see any difference in how fast the calculation is run. And even for a matrix with a million data points, an average laptop can find the mean of each column in less than 1/20 of a second.
+
+#### 2. More complex calculation
+Now we ask R to find the mean of the six lowest values of each column of a matrix. This requires R to first order the column values from smallest to largest, then pay attention to only the smallest six values, then take the mean of those values. According to our figure, we find any differences between `for` loops and `apply` to be negligible. 
+
+![](https://i.imgur.com/KGhXtVT.png)
+
+
+
+
