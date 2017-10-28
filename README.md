@@ -36,20 +36,20 @@ The apply command above does the same thing as the two preceding chunks of code,
 ## Methods
 At its core, our methods will involve creating a matrix, performing a calculation on every column in the matrix with either a **for loop** or **apply**, and timing how long the process took. We'll then compare the computation times, which will be our measure of efficiency. Before we get started, however, we'll address three additional points:
 
-### 1. Examine the role of matrix size
+#### 1. Examine the role of matrix size
 If there are differences in computational efficiency between for loops and apply, the differences will be more pronounced for larger matrices. In other words, if you want to know if you or your girlfriend is a better endurance runner, you'll get a more accurate answer if you run a marathon than if you race to that plate of Nachos on the table. (Save yourself an argument about fast-twitch versus slow-twitch muscle and just agree that watching Michael Phelps YouTube videos basically counts as exercise anyway.) So as we pit our competing methods against each other, we want to give them a task that will maximize the difference in their effectiveness.
 
 But the nice thing about coding is that it's often really easy to get a more nuanced answer to our question with just a few more lines of code. So let's ask how the difference in effectiveness between for loops and apply changes with the size of the matrix. Maybe there's effectively no difference until you're dealing with matrices the size of what Facebook knows about your personal life, or maybe there are differences in efficiency right from the start. To look at this, we'll keep the number of columns constant at 1,000 but we'll vary the size of each column from 2 rows to 1,000.
 
-### 2. Vary how difficult the computation is
+#### 2. Vary how difficult the computation is
 Maybe our results will depend on what computation, exactly, we're performing on our matrices. We'll use a simple computation (just finding the mean) and a more complicated one (finding the mean of the six smallest values, which requires sorting and subsetting too).  
 
-### 3. Minimize the role of chance
+#### 3. Minimize the role of chance
 At the core of statistics is that there are innumerable random forces swaying the results in any data collection we perform. Maybe that bird preening itself just had an itch and isn't actually exhibiting some complex self recognition. Maybe the person misread the survey question and doesn't actually think the capital of Montana is the sun. One way we address this randomness we can't control for is through replication. We give a survey to lots of people; we look at lots of birds. One sun-lover is probably a mistake, but if everyone in the survey thought the sun was the capital, then we need to sit down and reevaluate how Montana is being portrayed in the media. So in our code, we'll run our simulation 10 times to account for randomness within our computer's processing time.
 
 _[The code to carry out this posts is in this repository. It's called for-loops_v_apply.R.]_
 
 ## Results
-### 1. Simple calculation
+#### 1. Simple calculation
 
 
