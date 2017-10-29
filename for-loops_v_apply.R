@@ -82,13 +82,10 @@
   # Add the mean apply times
   lines(size, m.apply, col = "red", lwd = 2)
   polygon(coord.x, coord.y.apply, col = rgb(1, 0.1, 0.1, 0.3), border = NA)
-  
-  
+   
   # Add the legend
   par(font = 2)
   legend("topleft", col = 1:2, pch = 19, cex = 1.1, c("For loop", "Apply"), bty = 'n')
-
-
 
 ######################################################################################################
 ######################################################################################################
@@ -171,7 +168,6 @@
   # Add the mean apply times
   lines(size, m.apply, col = "red", lwd = 2)
   polygon(coord.x, coord.y.apply, col = rgb(1, 0.1, 0.1, 0.3), border = NA)
-  
   
   # Add the legend
   par(font = 2)
@@ -339,8 +335,4 @@
   mtext(outer = T, side = 2, font = 2, cex = 1.5, "Time (s)")
   mtext(outer = T, side = 3, font = 2, cex = 2, 
         "Time required to find mean of 6 lowest values\nof each column of a matrix", padj = 0.3)
-
-
-
-
 
