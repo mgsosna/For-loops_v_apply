@@ -36,21 +36,21 @@ The `apply` command above does the same thing as the two preceding chunks of cod
 ## Methods
 At its core, our methods will involve creating a matrix, performing a calculation on every column in the matrix with either a `for` or `apply`, and timing how long the process took. We'll then compare the computation times, which will be our measure of efficiency. Before we get started, however, we'll address three additional points:
 
-#### 1. Examine the role of matrix size
+### 1. Examine the role of matrix size
 If there are differences in computational efficiency between `for` loops and `apply`, the differences will be more pronounced for larger matrices. In other words, if you want to know if you or your girlfriend is a better endurance runner, you'll get a more accurate answer if you run a marathon than if you race to that plate of Nachos on the table. (Save yourself an argument about fast-twitch versus slow-twitch muscle and just agree that watching Michael Phelps YouTube videos basically counts as exercise anyway.) So as we pit our competing methods against each other, we want to give them a task that will maximize the difference in their effectiveness.
 
 But the nice thing about coding is that it's often really easy to get a more nuanced answer to our question with just a few more lines of code. So let's ask how the difference in effectiveness between `for` loops and `apply` _changes_ with the size of the matrix. Maybe there's effectively no difference until you're dealing with matrices the size of what Facebook knows about your personal life, or maybe there are differences in efficiency right from the start. To look at this, **we'll keep the number of columns constant at 1,000 but we'll vary the size of each column from 2 rows to 1,000.**
 
-#### 2. Vary how difficult the computation is
+### 2. Vary how difficult the computation is
 Maybe our results will depend on what computation, exactly, we're performing on our matrices. We'll use a simple computation (just finding the mean) and a more complicated one (finding the mean of the six smallest values, which requires sorting and subsetting too).  
 
-#### 3. Minimize the role of chance
+### 3. Minimize the role of chance
 At the core of statistics is that there are innumerable random forces swaying the results in any data collection we perform. Maybe that bird preening itself just had an itch and isn't actually exhibiting some complex self recognition. Maybe the person misread the survey question and doesn't actually think the capital of Montana is the sun. One way we address this randomness we can't control for is through replication. We give a survey to lots of people; we look at lots of birds. One sun-lover is probably a mistake, but if everyone in the survey thought the sun was the capital, then we need to sit down and reevaluate how Montana is being portrayed in the media. So in our code, we'll run our simulation 10 times to account for randomness within our computer's processing time.
 
 _[The code to carry out this posts is in this repository. It's called for-loops_v_apply.R.]_
 
 ## Results
-#### 1. Simple calculation
+### 1. Simple calculation
 When we just want to know the mean of each column in a matrix, it looks like `for` loops actually outcompete `apply` for matrices larger than 200,000 cells. (The difference is 0.005 seconds per calculation... but still!) 
 
 ![](https://i.imgur.com/sUOOLUZ.png)
@@ -59,7 +59,7 @@ In the figure above, the gray and red colors correspond to `for` loops and `appl
 
 The y-axis corresponds to the time it took to perform the calculation. Lower values means the calculation was faster. As you move to the right on the x-axis, you're seeing the computational time for increasingly larger matrices. We see the gray and red lines diverge because differences in the computational efficiency of `for` loops begin to outweigh `apply`. For relatively small matrices, though, it looks like there's not much difference between our two methods. 
 
-#### 2. More complex calculation
+### 2. More complex calculation
 Now we ask R to find the mean of the six lowest values of each column of a matrix. This requires R to first order the column values from smallest to largest, then pay attention to only the smallest six values, then take the mean of those values. According to our figure, we find any differences between `for` loops and `apply` to be negligible. 
 
 ![](https://i.imgur.com/eyzGTLC.png)
@@ -75,14 +75,14 @@ With the additional clarity we get when we run our simulation with 100 replicate
 ## Discussion
 So we see that `for` loops often have a slight edge over `apply` in terms of speed, especially for simple calculations or for huge matrices. Great, but this leaves us with a few questions.
 
-#### 1. Why are for loops more efficient?
+### 1. Why are for loops more efficient?
 The results above came as a surprise to me because I'd always heard about how inefficient `for` loops could be. It turns out I'd missed the bit that should follow that statement: `for` loops can be inefficient, but not if you allocate your memory well. It would be particularly inefficient, for example, to do something like `data <- c(data, new_data)`, which basically forces R to recall the result of every previous iteration, for every iteration. If you look at the code in this repository, you'll see that we instead created empty matrices whose cells were filled with values. 
 
 So we didn't mess up, but that doesn't fully explain why `for` loops are faster. According to [this thread on Stack Exchange](https://stackoverflow.com/questions/5533246/why-is-apply-method-slower-than-a-for-loop-in-r), a `for` loop can outcompete `apply` here because `for` loops use the vectorized indexes of a matrix, while `apply` converts each row into a vector, performs the calculations, and then has to convert the results back into an output. 
 
 _[For those of you who are really into the technical details, [lapply is an exception](https://stackoverflow.com/questions/2275896/is-rs-apply-family-more-than-syntactic-sugar) and is actually faster than for loops because more of its calculations are brought down into the language C and performed there.]_
 
-#### 2. If for loops are generally faster, why bother with apply?
+### 2. If for loops are generally faster, why bother with apply?
 The figures in this post have shown that `apply` is usually a bit slower than `for` loops. But does a difference of 0.01 seconds, or even 0.1 seconds, matter? If you're performing an evolutionary simulation on huge populations for thousands of generations, and you're doing this multiple times with different model parameters... then sure, maybe those 0.1 seconds add up. But the clarity in reading `apply` commands is far more important, I would argue. If you're sharing your code with a collaborator, or writing code you might read again in the future, you want to be as clear as possible. Concise code is better than a sprawling mess.
 
 Thanks for reading. If you have any suggestions for a fun R project, shoot me an e-mail.
