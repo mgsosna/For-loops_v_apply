@@ -64,6 +64,28 @@ Now we ask R to find the mean of the six lowest values of each column of a matri
 
 ![](https://i.imgur.com/eyzGTLC.png)
 
+Maybe for incredibly large matrices, `for` loops are slightly more efficient, as seen by the shaded regions not overlapping at the far right of the figure. However, we should still be careful in interpreting this figure; while the error envelopes don't overlap for some matrix sizes (e.g. 600k cells, 1 million), they do for other matrix sizes (e.g. 700k, 825k). It's pretty unlikely that `apply` is going to be significantly better for some arbitrary matrix sizes and nother others, so what we're probably seeing is randomness stemming from differences in the background processes running on my computer when a particular run was going. (To try to minimize these, I ran this analysis after restarting the computer and had no other open programs.) 
 
+Fifty replicates of our simulation doesn't seem to be enough to reject the idea that there's any difference between `for` loops and the `apply` function here. Let's rerun the code with more replicates. To save time, we'll focus on small and large matrices and skip intermediate sizes.
 
+![](https://i.imgur.com/f7WLhas.png)
 
+With the additional clarity we get when we run our simulation with 100 replicates, we can see that there don't seem to be significant differences between the two methods for small matrices, as we saw earlier. For large matrices, however, we see a fairly consistent superiority of `for` loops when the matrices are greater than 800,000 cells, meaning our original intuition seems to hold. This indicates that `for` loops are more efficient at performing this complicated function than `apply`, but only when the matrices are huge.
+
+## Discussion
+So we see that `for` loops often have a slight edge over `apply` in terms of speed, especially for simple calculations or for huge matrices. Great, but this leaves us with a few questions.
+
+#### 1. Why are for loops more efficient?
+The results above came as a surprise to me because I'd always heard about how inefficient `for` loops could be. It turns out I'd missed the bit that should follow that statement: `for` loops can be inefficient, but not if you allocate your memory well. It would be particularly inefficient, for example, to do something like `data <- c(data, new_data)`, which basically forces R to recall the result of every previous iteration, for every iteration. If you look at the code in this repository, you'll see that we instead created empty matrices whose cells were filled with values. 
+
+So we didn't mess up, but that doesn't fully explain why `for` loops are faster. According to [this thread on Stack Exchange](https://stackoverflow.com/questions/5533246/why-is-apply-method-slower-than-a-for-loop-in-r), a `for` loop can outcompete `apply` here because `for` loops use the vectorized indexes of a matrix, while `apply` converts each row into a vector, performs the calculations, and then has to convert the results back into an output. 
+
+_[For those of you who are really into the technical details, [lapply is an exception](https://stackoverflow.com/questions/2275896/is-rs-apply-family-more-than-syntactic-sugar) and is actually faster than for loops because more of its calculations are brought down into the language C and performed there.]_
+
+#### 2. If for loops are generally faster, why bother with apply?
+The figures in this post have shown that `apply` is usually a bit slower than `for` loops. But does a difference of 0.01 seconds, or even 0.1 seconds, matter? If you're performing an evolutionary simulation on huge populations for thousands of generations, and you're doing this multiple times with different model parameters... then sure, maybe those 0.1 seconds add up. But the clarity in reading `apply` commands is far more important, I would argue. If you're sharing your code with a collaborator, or writing code you might read again in the future, you want to be as clear as possible. Concise code is better than a sprawling mess.
+
+Thanks for reading. If you have any suggestions for a fun R project, shoot me an e-mail.
+
+Best,
+Matt
