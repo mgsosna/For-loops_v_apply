@@ -51,11 +51,11 @@ _[The code to carry out this posts is in this repository. It's called for-loops_
 
 ## Results
 ### 1. Simple calculation
-When we just want to know the mean of each column in a matrix, it looks like `for` loops actually outcompete `apply` for matrices larger than 200,000 cells. (The difference is 0.005 seconds per calculation... but still!) 
+When we just want to know the mean of each column in a matrix, it looks like `for` loops actually outcompete `apply` for matrices larger than 200,000 cells. (The difference is at most 0.02 seconds per calculation... but still!) 
 
 ![](https://i.imgur.com/sUOOLUZ.png)
 
-In the figure above, the gray and red colors correspond to `for` loops and `apply`, respectively. The lines are the mean values for 100 runs, and the shaded regions are our confidence intervals (mean +/- 1.96 * standard error).
+In the figure above, the gray and red colors correspond to `for` loops and `apply`, respectively. The lines are the mean values for 100 runs, and the shaded regions are our 95% confidence intervals (mean +/- 1.96 * standard error).
 
 The y-axis corresponds to the time it took to perform the calculation. Lower values means the calculation was faster. As you move to the right on the x-axis, you're seeing the computational time for increasingly larger matrices. We see the gray and red lines diverge because differences in the computational efficiency of `for` loops begin to outweigh `apply`. For relatively small matrices, though, it looks like there's not much difference between our two methods. 
 
