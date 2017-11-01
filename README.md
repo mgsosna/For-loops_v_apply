@@ -51,7 +51,7 @@ _[The code to carry out this posts is in this repository. It's called for-loops_
 
 ## Results
 ### 1. Simple calculation
-When we just want to know the mean of each column in a matrix, it looks like `for` loops actually outcompete `apply` for matrices larger than 200,000 cells. (The difference is at most 0.02 seconds per calculation... but still!) 
+When we just want to know the mean of each column in a matrix, it looks like `for` loops actually outcompete `apply` for matrices larger than 200,000 cells. (The difference is at most 0.03 seconds per calculation... but still!) 
 
 ![](https://i.imgur.com/sUOOLUZ.png)
 
