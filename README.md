@@ -68,7 +68,7 @@ Maybe for incredibly large matrices, `for` loops are slightly more efficient, as
 
 Fifty replicates of our simulation doesn't seem to be enough to reject the idea that there's any difference between `for` loops and the `apply` function here. Let's rerun the code with more replicates. To save time, we'll focus on small and large matrices and skip intermediate sizes.
 
-![](https://i.imgur.com/f7WLhas.png)
+![](https://i.imgur.com/42qGlxK.png)
 
 With the additional clarity we get when we run our simulation with 100 replicates, we can see that there don't seem to be significant differences between the two methods for small matrices, as we saw earlier. For large matrices, however, we see a fairly consistent superiority of `for` loops when the matrices are greater than 800,000 cells, meaning our original intuition seems to hold. This indicates that `for` loops are more efficient at performing this complicated function than `apply`, but only when the matrices are huge.
 
